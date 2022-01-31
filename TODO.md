@@ -1,0 +1,3 @@
+- [ ] Remove lines after node is deleted
+- [ ] Remove single line
+- [ ] Make copy of the array before calculating
