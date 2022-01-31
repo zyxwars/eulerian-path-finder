@@ -23,8 +23,8 @@
       const ctx = canvas.getContext("2d");
 
       ctx.beginPath();
-      ctx.moveTo(selectedNode.x, selectedNode.y);
-      ctx.lineTo(newSelectedNode.x, newSelectedNode.y);
+      ctx.moveTo(selectedNode.x + 25, selectedNode.y + 25);
+      ctx.lineTo(newSelectedNode.x + 25, newSelectedNode.y + 25);
       ctx.stroke();
 
       newSelectedNode.isSelected = false;
