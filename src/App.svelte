@@ -8,10 +8,10 @@
   let selectedNode = null;
   let nodeName = 0;
 
-  onMount(() => {
+  window.onresize = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-  });
+  };
 
   const handleCreateNode = (e) => {
     nodes = [
@@ -142,7 +142,7 @@
 
 <main>
   <canvas bind:this={canvas} on:click={handleCreateNode} />
-  <h4 class="is-possible">Is solvable: {isSolvableVar}</h4>
+  <h4 class="is-solvable">Is solvable: {isSolvableVar}</h4>
   {#each nodes as node}
     <Node
       {node}
@@ -164,7 +164,7 @@
     background-color: antiquewhite;
   }
 
-  .is-possible {
+  .is-solvable {
     position: absolute;
     top: 0;
     left: 15px;
