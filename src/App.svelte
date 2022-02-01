@@ -1,12 +1,18 @@
-<script>
+<script lang="ts">
   import { onMount } from "svelte";
 
   import Node from "./components/Node.svelte";
 
   let canvas;
   let nodes = [];
+  let edges = [];
   let selectedNode = null;
   let nodeName = 0;
+
+  onMount(() => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
 
   window.onresize = () => {
     canvas.width = window.innerWidth;
@@ -136,11 +142,16 @@
   };
 
   const handleDeleteNode = (e) => {
+    for (let node of nodes) {
+      node.edges.delete(e.detail);
+    }
+
     nodes = nodes.filter((node) => node !== e.detail);
   };
 </script>
 
 <main>
+  <div class="line" />
   <canvas bind:this={canvas} on:click={handleCreateNode} />
   <h4 class="is-solvable">Is solvable: {isSolvableVar}</h4>
   {#each nodes as node}
@@ -162,6 +173,16 @@
     height: 100vh;
 
     background-color: antiquewhite;
+  }
+
+  .line {
+    position: absolute;
+    top: 500px;
+    left: 500px;
+    width: 100px;
+    height: 5px;
+    transform: rotate(30deg);
+    background-color: aquamarine;
   }
 
   .is-solvable {
