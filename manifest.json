@@ -1,11 +1,11 @@
 {
   "name": "Eulerian path finder",
   "short_name": "Eulerian path finder",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "./favicon.svg",
       "sizes": "256x256"
     }
   ]
