@@ -1,11 +1,11 @@
 var cacheName = "euler";
 var contentToCache = [
-  "/index.html",
-  "/global.css",
-  "/build/bundle.css",
-  "/build/bundle.js",
-  "/build/bundle.js.map",
-  "/favicon.svg",
+  "./index.html",
+  "./global.css",
+  "./build/bundle.css",
+  "./build/bundle.js",
+  "./build/bundle.js.map",
+  "./favicon.svg",
 ];
 
 /* Start the service worker and cache all of the app's content */
