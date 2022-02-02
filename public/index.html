@@ -16,9 +16,16 @@
       href="https://fonts.googleapis.com/css2?family=Corinthia:wght@700&family=Fira+Code:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="manifest" href="/manifest.json" />
 
     <script defer src="/build/bundle.js"></script>
   </head>
 
-  <body></body>
+  <body>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js");
+      }
+    </script>
+  </body>
 </html>
