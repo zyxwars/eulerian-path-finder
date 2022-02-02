@@ -22,15 +22,20 @@ self.addEventListener("install", function (e) {
 self.addEventListener("fetch", function (e) {
   e.respondWith(
     (async function () {
-      const response = await fetch(e.request);
-      if (response) {
+      try {
+        const response = await fetch(e.request);
         const cache = await caches.open(cacheName);
         cache.put(e.request, response.clone());
         return response;
+      } catch (e) {
+        console.log(e);
+        try {
+          const r = await caches.match(e.request);
+          return r;
+        } catch (e) {
+          console.log(e);
+        }
       }
-
-      const r = await caches.match(e.request);
-      return r;
     })()
   );
 });
