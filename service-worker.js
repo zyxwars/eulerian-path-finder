@@ -22,16 +22,15 @@ self.addEventListener("install", function (e) {
 self.addEventListener("fetch", function (e) {
   e.respondWith(
     (async function () {
-      const r = await caches.match(e.request);
-      // console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
-      if (r) {
-        return r;
-      }
       const response = await fetch(e.request);
-      const cache = await caches.open(cacheName);
-      // console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
-      cache.put(e.request, response.clone());
-      return response;
+      if (response) {
+        const cache = await caches.open(cacheName);
+        cache.put(e.request, response.clone());
+        return response;
+      }
+
+      const r = await caches.match(e.request);
+      return r;
     })()
   );
 });
