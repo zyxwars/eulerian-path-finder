@@ -1,3 +1,7 @@
-- [ ] Remove lines after node is deleted
-- [ ] Remove single line
+- [x] Remove lines after node is deleted
+- [x] Remove single line
+- [ ] Fix nodes having same order number
+- Happens after deleting nodes
+- [ ] Show number of edges as the node number
+- [ ] Add better system for refreshing is solvable
 - [ ] Make copy of the array before calculating
