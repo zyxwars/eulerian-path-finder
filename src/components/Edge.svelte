@@ -14,15 +14,26 @@
 
 <div
   on:click={onDelete}
-  class="edge"
+  class="edge-area"
   style="left: {edge.x}px; top: {edge.y}px; width: {edge.width}px; height: {edge.height}px; transform: rotate({edge.angleDeg}deg);"
-/>
+>
+  <div class="edge" />
+</div>
 
 <style>
-  .edge {
+  .edge-area {
     position: absolute;
-    transform-origin: top left;
+    height: 2rem;
+    transform-origin: center left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
 
+  .edge {
+    width: 100%;
+    height: 10px;
     background-color: gray;
   }
 </style>

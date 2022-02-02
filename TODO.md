@@ -1,10 +1,8 @@
-- [x] Remove lines after node is deleted
-- [x] Remove single line
-- [x] Fix the algorithm destroying bridges
 - [ ] Add css selectors, for tutorial
-- [ ] Fix deleting in the middle of selecting
+- [ ] Fix double click sensitivity
+  - [ ] Add a second cooldown before new node can be deleted
+- [x] Fix deleting in the middle of selecting
 - [ ] Make copy of the array before calculating
-- [x] Fix nodes having same order number
 - [ ] Add spaces to tutorial, html space code
-- [x] Show number of edges as the node number
 - [ ] Add better system for refreshing is solvable
+- [ ] Zoom in and out

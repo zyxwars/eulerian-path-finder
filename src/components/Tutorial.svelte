@@ -1,6 +1,16 @@
+<script lang="ts">
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
+
+  const onClose = () => {
+    dispatch("tutorial_closed");
+  };
+</script>
+
 <div class="wrapper">
   <div class="tutorial">
-    <div class="close">[ESC]</div>
+    <button class="close" on:click={onClose}>[ESC]</button>
     Each node shows its degree (the number of edges connecting it to other nodes)
     <div class="line">
       <div class="node" style="background-color:yellow;" />

@@ -162,12 +162,13 @@
       ...edges,
       {
         x: selectedNode.x + 30,
-        y: selectedNode.y + 30,
+        // The css centers the edge even without adding 30
+        y: selectedNode.y + 5,
         width:
           (Math.abs(selectedNode.x - newSelectedNode.x) ** 2 +
             Math.abs(selectedNode.y - newSelectedNode.y) ** 2) **
           0.5,
-        height: 5,
+        height: 50,
         angleDeg: 180 + (angle * 180) / Math.PI,
         node1: selectedNode,
         node2: newSelectedNode,
@@ -180,7 +181,7 @@
     isSolvableVar = isSolvable();
   };
 
-  const handleSelectedNode = (e: CustomEvent) => {
+  const handleSelecteNode = (e: CustomEvent) => {
     const newSelectedNode = e.detail;
 
     // Deselect node
@@ -200,7 +201,7 @@
     selectedNode = newSelectedNode;
   };
 
-  const handleDeletedNode = (e: CustomEvent) => {
+  const handleDeleteNode = (e: CustomEvent) => {
     // Delete the connection from nodes
     for (let node of nodes) {
       node.edges.delete(e.detail);
@@ -213,6 +214,7 @@
 
     // Delete the node
     nodes = nodes.filter((node) => node !== e.detail);
+    selectedNode = null;
 
     isSolvableVar = isSolvable();
   };
@@ -235,7 +237,7 @@
 
 <main>
   {#if isTutorialVisible}
-    <Tutorial />
+    <Tutorial on:tutorial_closed={() => (isTutorialVisible = false)} />
   {/if}
 
   <div class="background" on:click={handleCreateNode}>
@@ -249,8 +251,8 @@
   {#each nodes as node}
     <Node
       {node}
-      on:node_selected={handleSelectedNode}
-      on:node_deleted={handleDeletedNode}
+      on:node_selected={handleSelecteNode}
+      on:node_deleted={handleDeleteNode}
     />
   {/each}
 
