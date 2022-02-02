@@ -2,5 +2,11 @@
   "name": "Eulerian path finder",
   "short_name": "Eulerian path finder",
   "start_url": "/index.html",
-  "display": "standalone"
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "256x256"
+    }
+  ]
 }

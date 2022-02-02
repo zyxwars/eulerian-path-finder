@@ -12,11 +12,11 @@ export interface Node extends Pos {
   id: number;
   solutionOrder: string;
   isSelected: boolean;
-  edges: Set<Node>;
+  edges: Set<number>;
 }
 
 export interface Edge extends Rect {
   angleDeg: number;
-  node1: Node;
-  node2: Node;
+  node1Id: number;
+  node2Id: number;
 }

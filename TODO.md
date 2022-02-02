@@ -2,7 +2,10 @@
 - [ ] Fix double click sensitivity
   - [ ] Add a second cooldown before new node can be deleted
 - [x] Fix deleting in the middle of selecting
-- [ ] Make copy of the array before calculating
+- [x] Make copy of the array before calculating
 - [ ] Add spaces to tutorial, html space code
 - [ ] Add better system for refreshing is solvable
+- [ ] Abstract logic into utils
 - [ ] Zoom in and out
+- [ ] Change set to array
+- [x] Favicon
