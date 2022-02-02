@@ -1,7 +1,10 @@
 - [x] Remove lines after node is deleted
 - [x] Remove single line
-- [ ] Fix nodes having same order number
-- Happens after deleting nodes
-- [ ] Show number of edges as the node number
-- [ ] Add better system for refreshing is solvable
+- [x] Fix the algorithm destroying bridges
+- [ ] Add css selectors, for tutorial
+- [ ] Fix deleting in the middle of selecting
 - [ ] Make copy of the array before calculating
+- [x] Fix nodes having same order number
+- [ ] Add spaces to tutorial, html space code
+- [x] Show number of edges as the node number
+- [ ] Add better system for refreshing is solvable

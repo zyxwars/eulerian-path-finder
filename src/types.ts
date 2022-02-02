@@ -9,6 +9,7 @@ export interface Rect extends Pos {
 }
 
 export interface Node extends Pos {
+  id: number;
   solutionOrder: string;
   isSelected: boolean;
   edges: Set<Node>;

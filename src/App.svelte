@@ -4,15 +4,30 @@
   import type * as T from "./types";
   import Node from "./components/Node.svelte";
   import Edge from "./components/Edge.svelte";
+  import Tutorial from "./components/Tutorial.svelte";
 
   let nodes: T.Node[] = [];
   let edges: T.Edge[] = [];
   let selectedNode: T.Node | null = null;
+  let isTutorialVisible = true;
+  let nodeId = 0;
+
+  onMount(() => {
+    window.addEventListener("keypress", (e: KeyboardEvent) => {
+      isTutorialVisible = !isTutorialVisible;
+    });
+    window.addEventListener("keydown", (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        isTutorialVisible = !isTutorialVisible;
+      }
+    });
+  });
 
   const handleCreateNode = (e: MouseEvent) => {
     nodes = [
       ...nodes,
       {
+        id: ++nodeId,
         solutionOrder: "",
         x: e.clientX,
         y: e.clientY,
@@ -28,7 +43,6 @@
   let isSolvableVar: string | boolean = false;
   const isSolvable = () => {
     for (let node of nodes) {
-      console.log(node.edges.size);
       if (node.edges.size === 0) return "circuit not closed";
     }
 
@@ -42,8 +56,30 @@
     return odd === 2 ? "Eulerian path" : odd === 0 ? "Eulerian cycle" : false;
   };
 
-  const isBridge = (node: T.Node) => {
-    return node.edges.size < 2;
+  const dfsCount = (startNode: T.Node, visited: boolean[]) => {
+    let count = 1;
+    visited[nodes.indexOf(startNode)] = true;
+
+    for (let node of startNode.edges) {
+      if (visited[nodes.indexOf(node)] === false)
+        count += dfsCount(node, visited);
+    }
+    return count;
+  };
+
+  const isBridge = (node1: T.Node, node2: T.Node) => {
+    let visited = Array(nodes.length).fill(false);
+    const c1 = dfsCount(node1, visited);
+
+    node1.edges.delete(node2);
+    node2.edges.delete(node1);
+    visited = Array(nodes.length).fill(false);
+    const c2 = dfsCount(node1, visited);
+
+    node1.edges.add(node2);
+    node2.edges.add(node1);
+
+    return c1 > c2;
   };
 
   const getEulerianPath = () => {
@@ -73,8 +109,11 @@
       // Find next node
       let nextNode = null;
       findNextNode: {
-        for (let node of currentNode.edges) {
-          if (!isBridge(node)) {
+        // Nodes are edited during dfs count, causes infinite loop
+        const edges = [...currentNode.edges];
+
+        for (let node of edges) {
+          if (!isBridge(currentNode, node)) {
             nextNode = node;
             break findNextNode;
           }
@@ -86,7 +125,7 @@
       currentNode.edges.delete(nextNode);
       nextNode.edges.delete(currentNode);
 
-      //   console.log(`${currentNode.solutionOrder} -> ${nextNode.solutionOrder}`);
+      console.log(`${currentNode.id} -> ${nextNode.id}`);
 
       // Visually change names to the order in which the graph can be drawn
       nextNode.solutionOrder =
@@ -195,6 +234,10 @@
 </script>
 
 <main>
+  {#if isTutorialVisible}
+    <Tutorial />
+  {/if}
+
   <div class="background" on:click={handleCreateNode}>
     <h4 class="is-solvable">Is solvable: {isSolvableVar}</h4>
   </div>
@@ -218,7 +261,6 @@
 
 <style>
   main {
-    position: relative;
     width: 100%;
     height: 100vh;
   }
@@ -231,13 +273,13 @@
   }
 
   .is-solvable {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 15px;
   }
 
   .action-btn {
-    position: absolute;
+    position: fixed;
     bottom: 15px;
     right: 15px;
   }

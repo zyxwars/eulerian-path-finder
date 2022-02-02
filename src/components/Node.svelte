@@ -19,6 +19,7 @@
 <div
   on:click={onSelect}
   on:contextmenu|preventDefault={onDelete}
+  on:dblclick={onDelete}
   class="node"
   style="left: {node.x}px; top: {node.y}px; background-color: {node.isSelected
     ? 'red'
