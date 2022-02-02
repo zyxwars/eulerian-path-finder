@@ -27,7 +27,7 @@
     </div>
     <div>Click on connection to remove it.</div>
     <div>Double click or right click a node to remove it.</div>
-    <div>You can always show this menu by pressing any key.w</div>
+    <div>You can always bring this menu up by pressing any key.w</div>
 
     <a href="https://github.com/zyxwars/eulerian-path-finder" class="source"
       >Source code</a

@@ -235,9 +235,9 @@
       (edge) => edge.node1Id !== e.detail.id && edge.node2Id !== e.detail.id
     );
 
+    if (e.detail.isSelected) selectedNode = null;
     // Delete the node
     delete nodes[e.detail.id];
-    selectedNode = null;
     nodes = { ...nodes };
 
     isSolvableVar = isSolvable();
