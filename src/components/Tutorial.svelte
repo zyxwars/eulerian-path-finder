@@ -57,6 +57,7 @@
 
   .wrapper {
     position: fixed;
+    z-index: 10;
     width: 100%;
     height: 100%;
     display: flex;
@@ -66,7 +67,7 @@
 
   .tutorial {
     position: relative;
-    width: 50%;
+    width: 90%;
     height: 75%;
 
     display: flex;
@@ -74,8 +75,8 @@
     align-items: center;
     flex-direction: column;
 
-    background-color: rgb(0, 0, 0);
     opacity: 70%;
+    background-color: rgb(0, 0, 0);
     border-radius: 1rem;
   }
   .source {
@@ -83,5 +84,11 @@
     bottom: 15px;
     width: 100%;
     text-align: center;
+  }
+
+  @media only screen and (min-width: 1400px) {
+    .tutorial {
+      width: 50%;
+    }
   }
 </style>

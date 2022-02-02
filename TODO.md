@@ -1,4 +1,4 @@
-- [ ] Add css selectors, for tutorial
+- [x] Add css media queries
 - [ ] Fix double click sensitivity
   - [ ] Add a second cooldown before new node can be deleted
 - [x] Fix deleting in the middle of selecting
@@ -7,5 +7,4 @@
 - [ ] Add better system for refreshing is solvable
 - [ ] Abstract logic into utils
 - [ ] Zoom in and out
-- [ ] Change set to array
 - [x] Favicon
