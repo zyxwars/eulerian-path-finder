@@ -37,6 +37,8 @@
   // Var is used for gui so that it doesn't need to be updated on every refresh
   let isSolvableVar: string | boolean = false;
   const isSolvable = () => {
+    if (Object.values(nodes).length === 0) return false;
+
     let odd = 0;
     for (let node of Object.values(nodes)) {
       if (node.edges.size === 0) return "circuit not closed";

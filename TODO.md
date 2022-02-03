@@ -1,10 +1,6 @@
-- [x] Add css media queries
 - [ ] Fix double click sensitivity
   - [ ] Add a second cooldown before new node can be deleted
-- [x] Fix deleting in the middle of selecting
-- [x] Make copy of the array before calculating
-- [ ] Add spaces to tutorial, html space code
+- [x] Add spaces to tutorial, html space code
 - [ ] Add better system for refreshing is solvable
 - [ ] Abstract logic into utils
 - [ ] Zoom in and out
-- [x] Favicon
