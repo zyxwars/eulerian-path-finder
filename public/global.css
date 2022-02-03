@@ -72,4 +72,5 @@ button:focus {
 * {
   font-family: "Corinthia", cursive;
   font-family: "Fira Code", monospace;
+  box-sizing: border-box;
 }

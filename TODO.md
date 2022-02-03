@@ -1,9 +1,11 @@
+- [ ] Animate tutorial on first entry
 - [ ] Fix double click sensitivity
   - When selecting node after creating it or selecting node after connecting it
+- [ ] Zoom in and out
+- Basic size multiplier
+- [ ] Reset canvas button
+- [ ] Spring leave trail
 - [x] Don't refresh solvable when showing results
 - [x] Add spaces to tutorial, html space code
 - [x] Add better system for refreshing is solvable
 - [x] Abstract logic into utils
-- [ ] Zoom in and out
-- [ ] Reset canvas button
-- [ ] Spring leave trail

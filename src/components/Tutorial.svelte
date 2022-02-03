@@ -57,6 +57,7 @@
     position: relative;
     width: 90%;
     height: 75%;
+    padding: 1rem;
 
     display: flex;
     justify-content: center;
