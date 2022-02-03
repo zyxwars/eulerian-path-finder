@@ -1,7 +1,9 @@
-- [ ] Don't refresh solvable when showing results
 - [ ] Fix double click sensitivity
-  - [ ] Add a second cooldown before new node can be deleted
+  - When selecting node after creating it or selecting node after connecting it
+- [x] Don't refresh solvable when showing results
 - [x] Add spaces to tutorial, html space code
 - [x] Add better system for refreshing is solvable
 - [x] Abstract logic into utils
 - [ ] Zoom in and out
+- [ ] Reset canvas button
+- [ ] Spring leave trail

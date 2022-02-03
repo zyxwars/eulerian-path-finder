@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { spring } from "svelte/motion";
 
   import type * as T from "./types";
   import Node from "./components/Node.svelte";
@@ -17,6 +18,7 @@
   let isTutorialVisible = true;
   let isShowingResult = false;
   let preResultNodes: { [nodeId: number]: T.Node } = [];
+  let solutionAnimation: T.SolutionPos[] = [];
 
   onMount(() => {
     window.addEventListener("keypress", (e: KeyboardEvent) => {
@@ -38,6 +40,8 @@
   // Var is used for gui
   $: isSolvableVar = isSolvable(Object.values(nodes));
   const isSolvable = (nodesArray: T.Node[]) => {
+    if (isShowingResult) return "showing solution";
+
     if (nodesArray.length === 0) return false;
 
     // Number(Object.keys(nodes)[0]) gets first element's id from the dict
@@ -61,6 +65,8 @@
   };
 
   const getPath = () => {
+    if (isShowingResult) return;
+    solutionAnimation = [];
     if (!isSolvableVar) return;
 
     const nodesArray = Object.values(nodes);
@@ -85,10 +91,21 @@
     }
 
     nodesArray.forEach((node) => (node.solutionOrder = ""));
-    let orderIndex = 1;
-    currentNode.solutionOrder = 1;
+    let orderIndex = 0;
 
     while (true) {
+      // Visually change names to the order in which the graph can be drawn
+      currentNode.solutionOrder =
+        currentNode.solutionOrder === ""
+          ? ++orderIndex
+          : `${currentNode.solutionOrder},${++orderIndex}`;
+
+      solutionAnimation.push({
+        x: currentNode.x,
+        y: currentNode.y,
+        order: orderIndex,
+      });
+
       // If all goes to plan the path is finished
       if (currentNode.edges.size === 0) break;
 
@@ -115,17 +132,12 @@
 
       console.log(`${currentNode.id} -> ${nextNode.id}`);
 
-      // Visually change names to the order in which the graph can be drawn
-      nextNode.solutionOrder =
-        nextNode.solutionOrder === ""
-          ? ++orderIndex
-          : `${nextNode.solutionOrder},${++orderIndex}`;
-
       currentNode = nextNode;
     }
 
     nodes = { ...nodes }; // Refresh state
     isShowingResult = true;
+    animateSolution(solutionAnimation[0]);
   };
 
   const handleCreateNode = (e: MouseEvent) => {
@@ -229,6 +241,19 @@
     // Delete the edge
     edges = edges.filter((edge) => edge !== e.detail);
   };
+
+  const animateSolution = (pos: T.SolutionPos) => {
+    if (!isShowingResult) return;
+
+    solutionNode.set({ x: pos.x, y: pos.y });
+
+    let i = solutionAnimation.indexOf(pos) + 1;
+    if (solutionAnimation.length == i) i = 0;
+
+    setTimeout(() => animateSolution(solutionAnimation[i]), 500);
+  };
+
+  const solutionNode = spring({ x: 0, y: 0 });
 </script>
 
 <main>
@@ -252,6 +277,13 @@
     />
   {/each}
 
+  {#if isShowingResult}
+    <div
+      class="solution-node"
+      style="top: {$solutionNode.y}px; left: {$solutionNode.x}px"
+    />
+  {/if}
+
   <button class="action-btn" on:click={() => getPath()}>Calculate Path</button>
 </main>
 
@@ -259,6 +291,15 @@
   main {
     width: 100%;
     height: 100vh;
+  }
+
+  .solution-node {
+    position: absolute;
+    width: 5rem;
+    height: 5rem;
+
+    border-radius: 50%;
+    background-color: red;
   }
 
   .background {
@@ -272,6 +313,8 @@
     position: fixed;
     top: 0;
     left: 15px;
+    font-weight: 500;
+    font-size: 1rem;
   }
 
   .action-btn {

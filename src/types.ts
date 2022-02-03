@@ -20,3 +20,7 @@ export interface Edge extends Rect {
   node1Id: number;
   node2Id: number;
 }
+
+export interface SolutionPos extends Pos {
+  order: number;
+}

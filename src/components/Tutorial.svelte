@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import { scale } from "svelte/transition";
 
   const dispatch = createEventDispatcher();
 
@@ -8,7 +9,7 @@
   };
 </script>
 
-<div class="wrapper">
+<div class="wrapper" in:scale out:scale>
   <div class="tutorial">
     <button class="close" on:click={onClose}>[ESC]</button>
 
