@@ -1,6 +1,7 @@
+- [ ] Don't refresh solvable when showing results
 - [ ] Fix double click sensitivity
   - [ ] Add a second cooldown before new node can be deleted
 - [x] Add spaces to tutorial, html space code
-- [ ] Add better system for refreshing is solvable
-- [ ] Abstract logic into utils
+- [x] Add better system for refreshing is solvable
+- [x] Abstract logic into utils
 - [ ] Zoom in and out

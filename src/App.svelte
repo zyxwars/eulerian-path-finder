@@ -5,8 +5,9 @@
   import Node from "./components/Node.svelte";
   import Edge from "./components/Edge.svelte";
   import Tutorial from "./components/Tutorial.svelte";
+  import { isBridge, dfsCount, getVisitedMatrix } from "./lib/euler";
 
-  let nodes: { [key: number]: T.Node } = [];
+  let nodes: { [nodeId: number]: T.Node } = [];
   let nodeId = 0;
   let selectedNode: T.Node | null = null;
   // Edges aren't used for any logic and are just visual
@@ -15,7 +16,7 @@
 
   let isTutorialVisible = true;
   let isShowingResult = false;
-  let preResultNodes: { [key: number]: T.Node } = [];
+  let preResultNodes: { [nodeId: number]: T.Node } = [];
 
   onMount(() => {
     window.addEventListener("keypress", (e: KeyboardEvent) => {
@@ -34,15 +35,23 @@
     });
   });
 
-  // Var is used for gui so that it doesn't need to be updated on every refresh
-  let isSolvableVar: string | boolean = false;
-  const isSolvable = () => {
-    if (Object.values(nodes).length === 0) return false;
+  // Var is used for gui
+  $: isSolvableVar = isSolvable(Object.values(nodes));
+  const isSolvable = (nodesArray: T.Node[]) => {
+    if (nodesArray.length === 0) return false;
+
+    // Number(Object.keys(nodes)[0]) gets first element's id from the dict
+    // Id doesn't have to be zero as you can delete nodes so nodes[0] might throw and error
+    const isClosed =
+      dfsCount(
+        Number(Object.keys(nodes)[0]),
+        getVisitedMatrix(nodes),
+        nodes
+      ) === nodesArray.length;
+    if (!isClosed) return "circuit not closed";
 
     let odd = 0;
-    for (let node of Object.values(nodes)) {
-      if (node.edges.size === 0) return "circuit not closed";
-
+    for (let node of nodesArray) {
       if (node.edges.size % 2 === 1) {
         odd++;
       }
@@ -51,40 +60,8 @@
     return odd === 2 ? "Eulerian path" : odd === 0 ? "Eulerian cycle" : false;
   };
 
-  const dfsCount = (v: number, visited: { [key: number]: boolean }) => {
-    let count = 1;
-    visited[v] = true;
-
-    for (let node of nodes[v].edges) {
-      if (visited[node] === false) count += dfsCount(node, visited);
-    }
-    return count;
-  };
-
-  const isBridge = (v: number, u: number) => {
-    let visited = {};
-    for (let nodeId of Object.keys(nodes)) {
-      visited[nodeId] = false;
-    }
-    const c1 = dfsCount(v, visited);
-
-    nodes[v].edges.delete(u);
-    nodes[u].edges.delete(v);
-    visited = {};
-    for (let nodeId of Object.keys(nodes)) {
-      visited[nodeId] = false;
-    }
-    const c2 = dfsCount(v, visited);
-
-    nodes[v].edges.add(u);
-    nodes[u].edges.add(v);
-
-    return c1 > c2;
-  };
-
   const getPath = () => {
-    const solutionType = isSolvable();
-    if (!solutionType) return;
+    if (!isSolvableVar) return;
 
     const nodesArray = Object.values(nodes);
 
@@ -123,7 +100,7 @@
 
         for (let nodeId of edges) {
           // Find node that is not a bridge to move to
-          if (!isBridge(currentNode.id, nodeId)) {
+          if (!isBridge(currentNode.id, nodeId, nodes)) {
             nextNode = nodes[nodeId];
             break findNextNode;
           }
@@ -161,7 +138,6 @@
       isSelected: false,
       edges: new Set(),
     };
-    isSolvableVar = isSolvable();
   };
 
   const connectNodes = (newSelectedNode: T.Node) => {
@@ -202,8 +178,6 @@
 
     nodes = { ...nodes }; // Refresh state
     selectedNode = null;
-
-    isSolvableVar = isSolvable();
   };
 
   const handleSelectNode = (e: CustomEvent) => {
@@ -241,8 +215,6 @@
     // Delete the node
     delete nodes[e.detail.id];
     nodes = { ...nodes };
-
-    isSolvableVar = isSolvable();
   };
 
   const handleDeleteEdge = (e: CustomEvent) => {
@@ -256,8 +228,6 @@
 
     // Delete the edge
     edges = edges.filter((edge) => edge !== e.detail);
-
-    isSolvableVar = isSolvable();
   };
 </script>
 
