@@ -28,13 +28,10 @@ self.addEventListener("fetch", function (e) {
         cache.put(e.request, response.clone());
         return response;
       } catch (e) {
-        console.log(e);
         try {
           const r = await caches.match(e.request);
           return r;
-        } catch (e) {
-          console.log(e);
-        }
+        } catch (e) {}
       }
     })()
   );
