@@ -62,7 +62,7 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
 
     opacity: 70%;
     background-color: rgb(0, 0, 0);
@@ -83,6 +83,7 @@
   @media only screen and (min-width: 1400px) {
     .tutorial {
       width: 50%;
+      font-size: 1.2rem;
     }
   }
 </style>
