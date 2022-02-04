@@ -10,7 +10,7 @@
   import { zoom } from "./stores";
   import Zoom from "./components/Zoom.svelte";
 
-  let nodes: { [nodeId: number]: T.Node } = [];
+  let nodes: { [nodeId: number]: T.Node } = {};
   let nodeId = 0;
   let selectedNode: T.Node | null = null;
   // Edges aren't used for any logic and are just visual
@@ -22,6 +22,9 @@
   let preResultNodes: { [nodeId: number]: T.Node } = [];
   let solutionAnimation: T.SolutionPos[] = [];
   let notDeletable: T.Node | null = null;
+  const solutionNode = spring({ x: 0, y: 0 });
+  // Var is used for gui, isSolvable is the function
+  $: isSolvableVar = isSolvable(Object.values(nodes));
 
   onMount(() => {
     window.addEventListener("keypress", (e: KeyboardEvent) => {
@@ -40,8 +43,6 @@
     });
   });
 
-  // Var is used for gui
-  $: isSolvableVar = isSolvable(Object.values(nodes));
   const isSolvable = (nodesArray: T.Node[]) => {
     if (isShowingResult) return "showing solution";
 
@@ -259,7 +260,10 @@
 
   const handleClearAll = () => {
     nodes = {};
+    nodeId = 0;
+    selectedNode = null;
     edges = [];
+    notDeletable = null;
   };
 
   const animateSolution = (pos: T.SolutionPos) => {
@@ -272,8 +276,6 @@
 
     setTimeout(() => animateSolution(solutionAnimation[i]), 500);
   };
-
-  const solutionNode = spring({ x: 0, y: 0 });
 </script>
 
 <main>
