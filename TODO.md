@@ -5,6 +5,7 @@
   - Basic size multiplier
 - [ ] Add sass or styled components
 - [ ] Config for values
+- [x] Unit tests for lib
 - [x] Restructure lib
 - [ ] Fix double click sensitivity
   - When selecting node after creating it or selecting node after connecting it
