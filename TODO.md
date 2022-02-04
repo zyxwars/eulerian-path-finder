@@ -1,6 +1,5 @@
 - [ ] Spring leave trail
 - [ ] Different color themes
-- [ ] Add sass or styled components
 - [ ] Fix double click sensitivity
   - When selecting node after creating it or selecting node after connecting it
-- [ ] Reset canvas button
+- [x] Reset canvas button

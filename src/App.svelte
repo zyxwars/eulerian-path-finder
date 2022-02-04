@@ -32,7 +32,7 @@
         isTutorialVisible = !isTutorialVisible;
       }
     });
-    window.addEventListener("mouseup", () => {
+    window.addEventListener("mousedown", () => {
       if (!isShowingResult) return;
 
       isShowingResult = false;
@@ -71,6 +71,10 @@
     if (isShowingResult) return;
     solutionAnimation = [];
     if (!isSolvableVar) return;
+    if (selectedNode) {
+      selectedNode.isSelected = false;
+      selectedNode = null;
+    }
 
     const nodesArray = Object.values(nodes);
 
@@ -244,6 +248,11 @@
     edges = edges.filter((edge) => edge !== e.detail);
   };
 
+  const handleClearAll = () => {
+    nodes = {};
+    edges = [];
+  };
+
   const animateSolution = (pos: T.SolutionPos) => {
     if (!isShowingResult) return;
 
@@ -290,6 +299,10 @@
     />
   {/if}
 
+  <button on:click={handleClearAll} class="erase-btn"
+    ><i class="fas fa-eraser fa-lg" /></button
+  >
+
   <button class="action-btn" on:click={() => getPath()}>Calculate Path</button>
 </main>
 
@@ -319,6 +332,15 @@
     left: 15px;
     font-weight: 500;
     font-size: 1rem;
+  }
+
+  .erase-btn {
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    position: fixed;
+    top: 15px;
+    right: 15px;
   }
 
   .action-btn {
