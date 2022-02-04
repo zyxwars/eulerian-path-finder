@@ -9,7 +9,6 @@
   import { isBridge, dfsCount, getVisitedMatrix } from "./lib/euler";
   import { zoom } from "./stores";
   import Zoom from "./components/Zoom.svelte";
-  import { NODE_SIZE } from "./constants";
 
   let nodes: { [nodeId: number]: T.Node } = [];
   let nodeId = 0;
@@ -22,6 +21,7 @@
   let isShowingResult = false;
   let preResultNodes: { [nodeId: number]: T.Node } = [];
   let solutionAnimation: T.SolutionPos[] = [];
+  let notDeletable: T.Node | null = null;
 
   onMount(() => {
     window.addEventListener("keypress", (e: KeyboardEvent) => {
@@ -147,6 +147,11 @@
     animateSolution(solutionAnimation[0]);
   };
 
+  const preventDelete = (node: T.Node) => {
+    notDeletable = node;
+    setTimeout(() => (notDeletable = null), 200);
+  };
+
   const handleCreateNode = (e: MouseEvent) => {
     const id = ++nodeId;
     nodes[id] = {
@@ -160,6 +165,8 @@
   };
 
   const connectNodes = (newSelectedNode: T.Node) => {
+    preventDelete(newSelectedNode);
+
     if (
       newSelectedNode.edges.has(selectedNode.id) &&
       selectedNode.edges.has(newSelectedNode.id)
@@ -219,6 +226,8 @@
   };
 
   const handleDeleteNode = (e: CustomEvent) => {
+    if (e.detail === notDeletable) return (notDeletable = null);
+
     // Delete the connection from nodes
     for (let node of Object.values(nodes)) {
       node.edges.delete(e.detail.id);
