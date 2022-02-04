@@ -1,4 +1,3 @@
 - [ ] Spring leave trail
 - [ ] Different color themes
-- [x] Fix double click sensitivity
-- [x] Reset canvas button
+- [ ] Fix background not stretching when scrolling -> new node can't be place if scrolled out of view

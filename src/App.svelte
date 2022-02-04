@@ -158,8 +158,8 @@
     nodes[id] = {
       id,
       solutionOrder: "",
-      x: e.clientX,
-      y: e.clientY,
+      x: e.pageX,
+      y: e.pageY,
       isSelected: false,
       edges: new Set(),
     };
