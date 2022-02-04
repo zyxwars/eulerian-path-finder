@@ -1,7 +1,9 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
 
+  import { zoom } from "../stores";
   import type * as T from "../types";
+  import { NODE_SIZE } from "../constants";
 
   export let node: T.Node;
 
@@ -29,7 +31,9 @@
     ? 'darkred'
     : node.edges.size % 2 == 0
     ? 'forestgreen'
-    : 'darkgoldenrod'};"
+    : 'darkgoldenrod'}; 
+    width: {$zoom * NODE_SIZE}px; height: {$zoom * NODE_SIZE}px; font-size: {1 *
+    $zoom}rem"
 >
   {node.solutionOrder ? node.solutionOrder : node.edges.size}
 </div>
@@ -37,14 +41,11 @@
 <style>
   .node {
     position: absolute;
-    width: 60px;
-    height: 60px;
     border-radius: 50%;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1rem;
     outline: forestgreen solid 0.2rem;
   }
 </style>

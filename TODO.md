@@ -1,16 +1,10 @@
-- [ ] Spring leave trail
-- [x] Animate tutorial on first entry
-- [ ] Different color themes
-- [ ] Zoom in and out
+- [x] Zoom in and out
   - Basic size multiplier
+- [x] Touch increase pos precision
+- [ ] Spring leave trail
+- [ ] Different color themes
 - [ ] Add sass or styled components
-- [ ] Config for values
-- [x] Unit tests for lib
-- [x] Restructure lib
+- [x] Config for values
 - [ ] Fix double click sensitivity
   - When selecting node after creating it or selecting node after connecting it
 - [ ] Reset canvas button
-- [x] Don't refresh solvable when showing results
-- [x] Add spaces to tutorial, html space code
-- [x] Add better system for refreshing is solvable
-- [x] Abstract logic into utils

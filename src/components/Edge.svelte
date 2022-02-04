@@ -1,5 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import { NODE_SIZE } from "../constants";
+  import { zoom } from "../stores";
 
   import type * as T from "../types";
 
@@ -15,9 +17,11 @@
 <div
   on:click={onDelete}
   class="edge-area"
-  style="left: {edge.x}px; top: {edge.y}px; width: {edge.width}px; height: {edge.height}px; transform: rotate({edge.angleDeg}deg);"
+  style="left: {edge.x + (NODE_SIZE / 2) * $zoom}px; top: {edge.y +
+    5 * $zoom}px; width: {edge.width}px; height: {edge.height *
+    $zoom}px; transform: rotate({edge.angleDeg}deg);"
 >
-  <div class="edge" />
+  <div class="edge" style="height: {10 * $zoom}px;" />
 </div>
 
 <style>

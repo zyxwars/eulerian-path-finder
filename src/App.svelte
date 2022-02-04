@@ -7,6 +7,9 @@
   import Edge from "./components/Edge.svelte";
   import Tutorial from "./components/Tutorial.svelte";
   import { isBridge, dfsCount, getVisitedMatrix } from "./lib/euler";
+  import { zoom } from "./stores";
+  import Zoom from "./components/Zoom.svelte";
+  import { NODE_SIZE } from "./constants";
 
   let nodes: { [nodeId: number]: T.Node } = [];
   let nodeId = 0;
@@ -174,9 +177,8 @@
     edges = [
       ...edges,
       {
-        x: selectedNode.x + 30,
-        // The css centers the edge even without adding 30
-        y: selectedNode.y + 5,
+        x: selectedNode.x,
+        y: selectedNode.y,
         width:
           (Math.abs(selectedNode.x - newSelectedNode.x) ** 2 +
             Math.abs(selectedNode.y - newSelectedNode.y) ** 2) **
@@ -261,9 +263,7 @@
     <Tutorial on:tutorial_closed={() => (isTutorialVisible = false)} />
   {/if}
 
-  <div class="background" on:click={handleCreateNode}>
-    <h4 class="is-solvable">Is solvable: {isSolvableVar}</h4>
-  </div>
+  <div class="background" on:click={handleCreateNode} />
 
   {#each edges as edge}
     <Edge {edge} on:edge_deleted={handleDeleteEdge} />
@@ -276,6 +276,11 @@
       on:node_deleted={handleDeleteNode}
     />
   {/each}
+
+  <h4 class="is-solvable">
+    Is solvable: {isSolvableVar} <br />
+    <Zoom />
+  </h4>
 
   {#if isShowingResult}
     <div
