@@ -15,8 +15,7 @@
   // Use node.edges for any logic
   let edges: T.Edge[] = [];
 
-  let isTutorialVisible = false;
-  setTimeout(() => (isTutorialVisible = true), 500);
+  let isTutorialVisible = true;
   let isShowingResult = false;
   let preResultNodes: { [nodeId: number]: T.Node } = [];
   let solutionAnimation: T.SolutionPos[] = [];

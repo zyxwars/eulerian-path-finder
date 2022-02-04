@@ -1,5 +1,5 @@
 - [ ] Spring leave trail
-- [ ] Animate tutorial on first entry
+- [x] Animate tutorial on first entry
 - [ ] Different color themes
 - [ ] Zoom in and out
   - Basic size multiplier
