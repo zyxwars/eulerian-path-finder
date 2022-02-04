@@ -33,7 +33,7 @@
     ? 'forestgreen'
     : 'darkgoldenrod'}; 
     width: {$zoom * NODE_SIZE}px; height: {$zoom * NODE_SIZE}px; font-size: {1 *
-    $zoom}rem"
+    $zoom}rem; outline-width: {0.2 * $zoom}rem"
 >
   {node.solutionOrder ? node.solutionOrder : node.edges.size}
 </div>

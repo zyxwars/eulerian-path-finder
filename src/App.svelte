@@ -285,7 +285,8 @@
   {#if isShowingResult}
     <div
       class="solution-node"
-      style="top: {$solutionNode.y}px; left: {$solutionNode.x}px"
+      style="top: {$solutionNode.y}px; left: {$solutionNode.x}px; width: {$zoom *
+        60}px; height: {$zoom * 60}px"
     />
   {/if}
 
@@ -300,8 +301,6 @@
 
   .solution-node {
     position: absolute;
-    width: 5rem;
-    height: 5rem;
 
     border-radius: 50%;
     background-color: red;
